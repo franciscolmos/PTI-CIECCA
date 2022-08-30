@@ -1,0 +1,17 @@
+version: '3'
+services:
+  database:
+    image: postgres:13
+    restart: always
+    container_name: ciecca-db
+    environment:
+      - POSTGRES_DB=ciecca_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test123
+    ports:
+      - '5432:5432'
+    volumes:
+      - ciecca-data:/var/lib/postgresql/data
+volumes:
+  ciecca-data:
+    external: true

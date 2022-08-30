@@ -1,0 +1,13 @@
+NODE_ENV=development
+DATABASE_URL=postgresql://postgres:test123@database:5432/ciecca_db?schema=public
+STORAGE_BASE_PATH=/data/assets
+PUBLIC_STORAGE_BASE_PATH=/data/assets
+
+ASSETS_FOLDER=./assets
+
+POSTGRESQL_DB=ciecca_db
+POSTGRESQL_USER=postgres
+POSTGRESQL_PASSWORD=test123
+
+AWS_ACCESS_KEY_ID=dummy_key
+AWS_SECRET_ACCESS_KEY=dummy_secret
