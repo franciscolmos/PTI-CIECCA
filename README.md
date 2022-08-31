@@ -55,3 +55,16 @@ docker volume create --name=ciecca-data
 
 Levantar docker:
 docker-compose up
+
+Prisma: https://docs.nestjs.com/recipes/prisma
+instalar prisnma
+-- npm install prisma --save-dev
+
+Now create your initial Prisma setup
+--npx prisma init
+
+Para generar una migration
+-- npx prisma migrate dev --name init
+
+Install and generate Prisma Client#
+-- $ npm install @prisma/client

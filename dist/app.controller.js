@@ -14,35 +14,25 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
-const app_service_1 = require("./app.service");
+const user_service_1 = require("./user.service");
 let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
+    constructor(userService) {
+        this.userService = userService;
     }
-    getHello() {
-        return this.appService.getHello();
-    }
-    async login(body) {
-        const user = await this.appService.login(body);
-        return user;
+    async signupUser(userData) {
+        return this.userService.createUser(userData);
     }
 };
 __decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getHello", null);
-__decorate([
-    (0, common_1.Post)('users'),
+    (0, common_1.Post)('user'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AppController.prototype, "login", null);
+], AppController.prototype, "signupUser", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
+    __metadata("design:paramtypes", [user_service_1.UserService])
 ], AppController);
 exports.AppController = AppController;
 //# sourceMappingURL=app.controller.js.map
