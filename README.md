@@ -63,8 +63,8 @@ instalar prisnma
 Now create your initial Prisma setup
 --npx prisma init
 
-Para generar una migration
--- npx prisma migrate dev --name init
+Para generar una migration --> cuando modificamos el schema.prisma tenemos que generar una migración.
+-- npx prisma migrate dev
 
 Install and generate Prisma Client#
 -- $ npm install @prisma/client

@@ -12,18 +12,78 @@ datasource db {
 
 // Agregamos modelos
 
-model User {
+model Usuario {
   id    Int     @default(autoincrement()) @id
   email String  @unique
   name  String?
-  posts Post[]
+  edad  Int   @default(28)
 }
 
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+model Tarea{
+  id    Int     @default(autoincrement()) @id
+  marca_temporal DateTime
+  nombre_colaborador String
+  id_orden_produccion Int
+  fecha DateTime
+  hora_inicio DateTime
+  hora_fin DateTime
+  tipo_operacion Int
+  id_operacion Int
+  Operacion  Operacion?   @relation(fields: [id_operacion], references: [id])
+  Orden_Produccion Orden_Produccion? @relation(fields: [id_orden_produccion], references: [id])
 }
+
+model Operacion{
+  id    Int     @default(autoincrement()) @id
+  tipo_operacion Int
+  nombre_proceso String
+  cant_total_componentes_soldados Int
+  programa_utilizado String
+  cantidad_placas_fallas Int
+  cantidad_placas Int
+  comentarios String
+  equipos String
+  programa_impresora String
+  codigo_estano String
+  perfil_horno String
+  soldadora_ola String
+  programa_ola String
+  horno_refusion String
+  Tipo_Operacion Tipo_Operacion? @relation(fields: [tipo_operacion], references: [id])
+  Tarea Tarea[]
+}
+
+model Orden_Produccion {
+  id Int @default(autoincrement()) @id
+  fecha_orden DateTime
+  id_producto Int
+  descripcion String
+  cantidad Int
+  observaciones String
+  Producto  Producto?   @relation(fields: [id_producto], references: [id])
+  Tarea Tarea[]
+}
+
+model Producto{
+  id Int @default(autoincrement()) @id
+  codigo_productos String
+  descripcion String
+  comp_smd_bot Int
+  var_smd_bot Int
+  comp_smd_top Int
+  var_smd_top Int
+  var_bot_top	Int
+  comp_tht_bot Int
+  comp_tht_top Int
+  ptos_sold_man_smd Int
+  ptos_sold_man_tht Int
+  Orden_Produccion Orden_Produccion[]
+}
+
+model Tipo_Operacion{
+  id Int @default(autoincrement()) @id
+  tipo_operacion String
+  descripcion String
+  Operacion Operacion[]
+}
+
