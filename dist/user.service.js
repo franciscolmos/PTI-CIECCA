@@ -17,13 +17,13 @@ let UserService = class UserService {
         this.prisma = prisma;
     }
     async user(userWhereUniqueInput) {
-        return this.prisma.user.findUnique({
+        return this.prisma.usuario.findUnique({
             where: userWhereUniqueInput,
         });
     }
     async users(params) {
         const { skip, take, cursor, where, orderBy } = params;
-        return this.prisma.user.findMany({
+        return this.prisma.usuario.findMany({
             skip,
             take,
             cursor,
@@ -32,19 +32,19 @@ let UserService = class UserService {
         });
     }
     async createUser(data) {
-        return this.prisma.user.create({
+        return this.prisma.usuario.create({
             data,
         });
     }
     async updateUser(params) {
         const { where, data } = params;
-        return this.prisma.user.update({
+        return this.prisma.usuario.update({
             data,
             where,
         });
     }
     async deleteUser(where) {
-        return this.prisma.user.delete({
+        return this.prisma.usuario.delete({
             where,
         });
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as users from './users.json';
+import * as users from 'users.json';
 
 @Injectable()
 export class AppService {
