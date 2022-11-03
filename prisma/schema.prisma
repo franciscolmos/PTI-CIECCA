@@ -29,7 +29,7 @@ model Tarea{
   hora_fin DateTime?
   id_operacion Int
   Operacion  Operacion?   @relation(fields: [id_operacion], references: [id])
-  Orden_Produccion Orden_Produccion? @relation(fields: [id_orden_produccion], references: [id])
+  Orden_Produccion Orden_Produccion? @relation(fields: [id_orden_produccion], references: [numero_orden])
 }
 
 model Operacion{
@@ -54,7 +54,7 @@ model Operacion{
 
 model Orden_Produccion {
   id Int @default(autoincrement()) @id
-  numero_orden Int?
+  numero_orden Int @unique
   fecha_orden DateTime?
   id_producto String
   descripcion String?
