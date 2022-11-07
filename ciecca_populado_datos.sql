@@ -216,7 +216,7 @@ INSERT INTO public."Producto" (codigo_productos,descripcion,comp_smd_bot,var_smd
 --INSERT INTO "Orden_Produccion"(numero_orden,fecha_orden,id_producto,descripcion,cantidad,observaciones) VALUES (1383,'11/11/2021 14:26','5000089','WSDMC2CPU_12',20,NULL);
 --INSERT INTO "Orden_Produccion"(numero_orden,fecha_orden,id_producto,descripcion,cantidad,observaciones) VALUES (1403,'24/1/2022 17:51','15700042','EVSE R01 - NOSSO',6,NULL);
 --INSERT INTO "Orden_Produccion"(numero_orden,fecha_orden,id_producto,descripcion,cantidad,observaciones) VALUES (1404,'26/1/2022 10:57','15600050','PTB3454_MS_ORO - GRASSO',200,NULL);
-set datestyle to "ISO,DMY"
+set datestyle to "ISO,DMY";
 INSERT INTO "Orden_Produccion"(numero_orden,fecha_orden,id_producto,descripcion,cantidad,observaciones) VALUES (1011,'03/01/2020 9:20','4300051','YONEO_MK_V1.0.1',27,NULL);
 INSERT INTO "Orden_Produccion"(numero_orden,fecha_orden,id_producto,descripcion,cantidad,observaciones) VALUES (1012,'03/01/2020 12:26','4300049','YONEO_BUSES_V1.0.1',20,NULL);
 INSERT INTO "Orden_Produccion"(numero_orden,fecha_orden,id_producto,descripcion,cantidad,observaciones) VALUES (1013,'07/01/2020 12:07','4300050','YONEO_MOLINETE_V1.0.1',1,NULL);
@@ -4921,7 +4921,6 @@ INSERT INTO "Operacion"(tipo_operacion,nombre_proceso,cant_total_componentes_sol
 INSERT INTO "Operacion"(tipo_operacion,nombre_proceso,cant_total_componentes_soldados,programa_utilizado,cantidad_placas_fallas,cantidad_placas,comentarios,equipos,programa_impresora,codigo_estano,perfil_horno,soldadora_ola,programa_ola,horno_refusion) VALUES ('39',NULL,NULL,'NA',NULL,'0','Devolución de estaño a Grasso 25/11/2021',NULL,'NA','RCP-000058-PB1','ALPHA OM-5300 070',NULL,NULL,'ETA-E10');
 
 
-
 --TAREAS
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('6/10/2020 18:12:14','MN',1132,'6/10/2020','6/10/2020 17:00:00.000','6/10/2020 17:30:00.000',1);
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('6/10/2020 18:13:20','SC',1132,'6/10/2020','6/10/2020 18:00:00.000','6/10/2020 18:20:00.000',2);
@@ -8575,7 +8574,7 @@ INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('12/4/2022 16:22:51','VN',1399,'12/4/2022','12/4/2022 08:00:00.000','12/4/2022 16:20:00.000',4123);
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('12/4/2022 16:24:54','LM',1399,'12/4/2022','12/4/2022 08:00:00.000','12/4/2022 16:24:00.000',4124);
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('12/4/2022 18:20:14','JT',1399,'12/4/2022','12/4/2022 17:19:00.000','12/4/2022 18:10:00.000',4127);
-INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('13/4/2022 10:03:00','JT',1399,'13/4/2022','13/4/2022 09:40:00.000','13/4/2022 09:55:00.000',4129)
+INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('13/4/2022 10:03:00','JT',1399,'13/4/2022','13/4/2022 09:40:00.000','13/4/2022 09:55:00.000',4129);
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('13/4/2022 14:02:56','GS',1399,'13/4/2022','13/4/2022 08:30:00.000','13/4/2022 13:55:00.000',4133);
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('13/4/2022 16:20:54','VN',1399,'13/4/2022','13/4/2022 08:00:00.000','13/4/2022 16:20:00.000',4135);
 INSERT INTO "Tarea"(marca_temporal,nombre_colaborador,id_orden_produccion,fecha,hora_inicio,hora_fin,id_operacion) VALUES ('13/4/2022 16:22:00','MS',1399,'13/4/2022','13/4/2022 08:05:00.000','13/4/2022 16:20:00.000',4136);

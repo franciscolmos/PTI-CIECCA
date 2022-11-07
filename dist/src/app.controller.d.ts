@@ -1,8 +1,10 @@
-import { UserService } from './user.service';
-import { Usuario as UserModel } from '@prisma/client';
+import { UserService } from "./user.service";
+import { OPService } from "./op.service";
+import { Usuario as UserModel } from "@prisma/client";
 export declare class AppController {
     private readonly userService;
-    constructor(userService: UserService);
+    private readonly operationService;
+    constructor(userService: UserService, operationService: OPService);
     signupUser(userData: {
         name?: string;
         email: string;

@@ -15,16 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
+const op_service_1 = require("./op.service");
 let AppController = class AppController {
-    constructor(userService) {
+    constructor(userService, operationService) {
         this.userService = userService;
+        this.operationService = operationService;
     }
     async signupUser(userData) {
         return this.userService.createUser(userData);
     }
 };
 __decorate([
-    (0, common_1.Post)('user'),
+    (0, common_1.Post)("user"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -32,7 +34,8 @@ __decorate([
 ], AppController.prototype, "signupUser", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        op_service_1.OPService])
 ], AppController);
 exports.AppController = AppController;
 //# sourceMappingURL=app.controller.js.map

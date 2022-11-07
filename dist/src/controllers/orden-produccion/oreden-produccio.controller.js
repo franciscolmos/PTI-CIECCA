@@ -12,28 +12,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
+exports.OrdenProduccionController = void 0;
 const common_1 = require("@nestjs/common");
-const user_service_1 = require("./user.service");
-let AppController = class AppController {
-    constructor(userService) {
-        this.userService = userService;
+const op_service_1 = require("../../op.service");
+let OrdenProduccionController = class OrdenProduccionController {
+    constructor(OPService) {
+        this.OPService = OPService;
     }
-    async getHello(body) {
-        const user = await this.userService.login(body);
-        return user;
+    async avgOperationFailure(id) {
+        return this.OPService.opStatistics(id);
     }
 };
 __decorate([
-    (0, common_1.Get)(),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], AppController.prototype, "getHello", null);
-AppController = __decorate([
-    (0, common_1.Controller)('users'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
-], AppController);
-exports.AppController = AppController;
-//# sourceMappingURL=user.controller.js.map
+], OrdenProduccionController.prototype, "avgOperationFailure", null);
+OrdenProduccionController = __decorate([
+    (0, common_1.Controller)("order-production"),
+    __metadata("design:paramtypes", [op_service_1.OPService])
+], OrdenProduccionController);
+exports.OrdenProduccionController = OrdenProduccionController;
+//# sourceMappingURL=oreden-produccio.controller.js.map
