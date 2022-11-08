@@ -7,7 +7,9 @@ export class OrdenProduccionController {
   constructor(private readonly OPService: OPService) {}
 
   @Get(":id")
-  async avgOperationFailure(@Param("id") id: string): Promise<IOPStatistics> {
+  async avgOperationFailure(
+    @Param("id") id: string
+  ): Promise<IOPStatistics> {
     return this.OPService.opStatistics(id);
   }
 }

@@ -19,8 +19,17 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [],
-        controllers: [app_controller_1.AppController, oreden_produccio_controller_1.OrdenProduccionController],
-        providers: [app_service_1.AppService, user_service_1.UserService, op_service_1.OPService, prisma_service_1.PrismaService],
+        controllers: [
+            app_controller_1.AppController,
+            oreden_produccio_controller_1.OrdenProduccionController
+        ],
+        providers: [
+            app_service_1.AppService,
+            user_service_1.UserService,
+            op_service_1.OPService,
+            prisma_service_1.PrismaService,
+            common_1.Logger
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;

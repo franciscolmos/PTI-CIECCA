@@ -12,34 +12,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OPService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("./prisma.service");
-const client_1 = require("@prisma/client");
 let OPService = class OPService {
-    constructor(prisma) {
+    constructor(prisma, logger) {
         this.prisma = prisma;
+        this.logger = logger;
     }
     async opStatistics(id) {
-        const opStatistics = await this.prisma.$queryRaw(client_1.Prisma.sql `
-      SELECT CASE WHEN ((o."${client_1.Prisma.OperacionScalarFieldEnum.cantidad_placas}" / op."${client_1.Prisma.Orden_ProduccionScalarFieldEnum.cantidad}")*100) is null
-                  THEN 100
-                  ELSE CASE WHEN (o."${client_1.Prisma.OperacionScalarFieldEnum.cantidad_placas}" / op."${client_1.Prisma.Orden_ProduccionScalarFieldEnum.cantidad}")*100 > 100 THEN 100 ELSE
-                  (o."${client_1.Prisma.OperacionScalarFieldEnum.cantidad_placas}" / op."${client_1.Prisma.Orden_ProduccionScalarFieldEnum.cantidad}")*100 END END
-            as completado,
-             p."${client_1.Prisma.ProductoScalarFieldEnum.descripcion}" as proceso,
-             o."${client_1.Prisma.OperacionScalarFieldEnum.cantidad_placas}" as cantidadPlacas
-      FROM "${client_1.Prisma.ModelName.Orden_Produccion}" op
-        JOIN "${client_1.Prisma.ModelName.Producto}" p
-          on p."${client_1.Prisma.ProductoScalarFieldEnum.codigo_productos}" = op."${client_1.Prisma.Orden_ProduccionScalarFieldEnum.id_producto}"
-        JOIN "${client_1.Prisma.ModelName.Tarea}" t
-          on t."${client_1.Prisma.TareaScalarFieldEnum.id_orden_produccion}" = op."${client_1.Prisma.Orden_ProduccionScalarFieldEnum.numero_orden}"
-        JOIN "${client_1.Prisma.ModelName.Operacion}" o
-          on t."${client_1.Prisma.TareaScalarFieldEnum.id_operacion}" = op."${client_1.Prisma.OperacionScalarFieldEnum.id}"
-        WHERE op."${client_1.Prisma.Orden_ProduccionScalarFieldEnum.numero_orden}" = ${id}`);
+        const sqlQuery = `
+      SELECT CASE WHEN ((o.cantidad_placas / op.cantidad)*100) IS NULL 
+        THEN 100
+        ELSE CASE WHEN (o.cantidad_placas / op.cantidad) * 100 > 100 
+          THEN 100
+          ELSE (o.cantidad_placas / op.cantidad) * 100 END END
+        AS completado,
+      to2.descripcion  as proceso,
+            o.cantidad_placas as cantidadPlacas
+      FROM "Operacion" o
+      JOIN "Tarea" t ON t.id_operacion = o.id
+      JOIN "Orden_Produccion" op on op.numero_orden  = t.id_orden_produccion
+      JOIN "Tipo_Operacion" to2 ON to2.id = o.tipo_operacion
+      WHERE op.numero_orden = ${id}`;
+        this.logger.debug(sqlQuery);
+        const opStatistics = await this.prisma.$queryRawUnsafe(sqlQuery);
         return opStatistics;
     }
 };
 OPService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        common_1.Logger])
 ], OPService);
 exports.OPService = OPService;
 //# sourceMappingURL=op.service.js.map
