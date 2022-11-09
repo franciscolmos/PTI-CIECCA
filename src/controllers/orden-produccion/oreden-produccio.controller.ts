@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Param } from "@nestjs/common";
-import { IOPStatistics } from "src/models/op-statisticts-model";
+import { IOProduction, IProductionModule } from "src/models/op-statisticts-model";
 import { OPService } from "../../op.service";
 
 @Controller("order-production")
@@ -9,7 +9,7 @@ export class OrdenProduccionController {
   @Get(":id")
   async avgOperationFailure(
     @Param("id") id: string
-  ): Promise<IOPStatistics> {
-    return this.OPService.opStatistics(id);
+  ): Promise<IProductionModule> {
+    return this.OPService.opProductionModule(id);
   }
 }

@@ -20,7 +20,7 @@ let OrdenProduccionController = class OrdenProduccionController {
         this.OPService = OPService;
     }
     async avgOperationFailure(id) {
-        return this.OPService.opStatistics(id);
+        return this.OPService.opProductionModule(id);
     }
 };
 __decorate([

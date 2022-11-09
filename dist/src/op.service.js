@@ -19,28 +19,71 @@ let OPService = class OPService {
     }
     async opStatistics(id) {
         const sqlQuery = `
-      SELECT CASE WHEN ((o.cantidad_placas / op.cantidad)*100) IS NULL 
-        THEN 100
-        ELSE CASE WHEN (o.cantidad_placas / op.cantidad) * 100 > 100 
+      SELECT to2.descripcion as proceso,
+      CASE WHEN ((SUM(o.cantidad_placas) / SUM(op.cantidad))*100) IS NULL 
           THEN 100
-          ELSE (o.cantidad_placas / op.cantidad) * 100 END END
-        AS completado,
-      to2.descripcion  as proceso,
-            o.cantidad_placas as cantidadPlacas
-      FROM "Operacion" o
-      JOIN "Tarea" t ON t.id_operacion = o.id
-      JOIN "Orden_Produccion" op on op.numero_orden  = t.id_orden_produccion
-      JOIN "Tipo_Operacion" to2 ON to2.id = o.tipo_operacion
-      WHERE op.numero_orden = ${id}`;
+          ELSE CASE WHEN (SUM(o.cantidad_placas) / SUM(op.cantidad)) * 100 > 100 
+            THEN 100
+            ELSE (SUM(o.cantidad_placas) / SUM(op.cantidad)) * 100 END END
+          AS completado,
+        case when (SUM(o.cantidad_placas) > SUM(op.cantidad)) then SUM(op.cantidad) else SUM(o.cantidad_placas) end as cantidadPlacas
+        FROM "Operacion" o
+        JOIN "Tarea" t ON t.id_operacion = o.id
+        JOIN "Orden_Produccion" op on op.numero_orden  = t.id_orden_produccion
+        JOIN "Tipo_Operacion" to2 ON to2.id = o.tipo_operacion
+        WHERE op.numero_orden = ${id}
+          AND to2.id in (16, 17, 18, 19, 30, 31, 32, 33)
+      GROUP BY to2.descripcion`;
         this.logger.debug(sqlQuery);
         const opStatistics = await this.prisma.$queryRawUnsafe(sqlQuery);
         return opStatistics;
     }
+    async opControl(id) {
+        const sqlQuery = `
+    SELECT to2.descripcion  as proceso,
+      SUM(o.cantidad_placas) as placasOk,
+      SUM(o.cantidad_placas_fallas) as placasNC
+    FROM "Operacion" o
+    JOIN "Tarea" t ON t.id_operacion = o.id
+    JOIN "Orden_Produccion" op on op.numero_orden  = t.id_orden_produccion
+    JOIN "Tipo_Operacion" to2 ON to2.id = o.tipo_operacion
+    WHERE op.numero_orden = ${id}
+      AND to2.id in (9, 10, 11, 12, 13, 14, 35, 36, 37)
+    GROUP BY to2.descripcion`;
+        this.logger.debug(sqlQuery);
+        const opControl = await this.prisma.$queryRawUnsafe(sqlQuery);
+        return opControl;
+    }
+    async opRework(id) {
+        const sqlQuery = `
+    SELECT to2.descripcion  as proceso,
+      SUM(o.cantidad_placas) as cantidad_placas
+    FROM "Operacion" o
+    JOIN "Tarea" t ON t.id_operacion = o.id
+    JOIN "Orden_Produccion" op on op.numero_orden  = t.id_orden_produccion
+    JOIN "Tipo_Operacion" to2 ON to2.id = o.tipo_operacion
+    WHERE op.numero_orden = ${id}
+      AND to2.id in (21, 22, 23, 24, 25, 26)
+    GROUP BY to2.descripcion`;
+        this.logger.debug(sqlQuery);
+        const opRework = await this.prisma.$queryRawUnsafe(sqlQuery);
+        return opRework;
+    }
+    async opProductionModule(id) {
+        const opProduction = await this.opStatistics(id);
+        const opControl = await this.opControl(id);
+        const opRework = await this.opRework(id);
+        const opProductionModule = {
+            production: opProduction,
+            control: opControl,
+            rework: opRework
+        };
+        return opProductionModule;
+    }
 };
 OPService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        common_1.Logger])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService, common_1.Logger])
 ], OPService);
 exports.OPService = OPService;
 //# sourceMappingURL=op.service.js.map
